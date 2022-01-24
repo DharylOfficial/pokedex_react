@@ -12,8 +12,8 @@ class App extends React.Component {
       <div>
         <BrowserRouter>
           <ChakraProvider>
+            <Navbar />
             <Container maxW="container.lg">
-              <Navbar />
               <Routes>
                 <Route path="/" element={<Pokedex />} />
               </Routes>
