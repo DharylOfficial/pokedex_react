@@ -20,11 +20,18 @@ function deletePokemon(id) {
   return http.delete(apiEndpoint);
 }
 
-const pokedex = {
+function getTypes() {
+  const apiEndpoint = `http://127.0.0.1:8000/api/type/`;
+  return http.get(apiEndpoint);
+}
+
+const pokedexService = {
   getPokemon,
   postPokemon,
   patchPokemon,
   deletePokemon,
+
+  getTypes,
 };
 
-export default pokedex;
+export default pokedexService;
