@@ -23,7 +23,6 @@ class Pokedex extends Component {
   }
 
   onQueryChange = (e) => {
-    console.log(e);
     this.setState({ query: e.target.value });
   };
 
@@ -34,7 +33,7 @@ class Pokedex extends Component {
     return (
       <div>
         <Pokesearch onChange={this.onQueryChange} value={query} />
-        <SimpleGrid my="5px" columns={3} spacing="10px">
+        <SimpleGrid my="5px" columns={3} spacing="10px" minChildWidth="320px">
           {pokemonList}
         </SimpleGrid>
       </div>

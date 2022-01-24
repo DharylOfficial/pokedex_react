@@ -10,7 +10,12 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div style={{ backgroundColor: "#CFE7D4", marginBottom: "20px" }}>
+    <div
+      style={{
+        backgroundColor: "#CFE7D4",
+        marginBottom: "20px",
+      }}
+    >
       <Container maxW="container.lg">
         <Flex py="20px">
           <Link to="/">
