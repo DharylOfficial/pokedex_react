@@ -1,5 +1,4 @@
 import { Button, Flex, Box, Heading, Spacer } from "@chakra-ui/react";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (

@@ -1,26 +1,40 @@
-import { Badge, Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Image, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import loadingImage from "../../images/loading-chemical.gif";
 
-const Pokecard = (pokemon) => {
-  function showPokemon() {
-    console.log(pokemon.image_url);
+import { titleCase } from "../utilities";
+import Pokebadge from "./pokebadge";
+
+const Pokecard = ({ pokemon }) => {
+  function createBadges() {
+    const badges = pokemon.type_details.map((details) => {
+      return <Pokebadge type_details={details} />;
+    });
+    return badges;
   }
 
   return (
-    <Box as="button" p="5" maxW="320px" borderWidth="1px">
-      <Image
-        borderRadius="md"
-        src={pokemon.image_url}
-        fallbackSrc="https://bit.ly/dan-abramov"
-      />
-      <Stack direction="row" mt="5px">
-        <Badge>Normal{showPokemon()}</Badge>
-        <Badge colorScheme="green">Grass</Badge>
-        <Badge colorScheme="red">Fire</Badge>
-        <Badge colorScheme="purple">Psychic</Badge>
-      </Stack>
-      <Text mt={2} fontSize="xl" fontWeight="semibold" align="left">
-        {pokemon.name}
-      </Text>
+    <Box p="5" maxW="320px" borderWidth="1px">
+      <Center>
+        <Link to="/home">
+          <Image
+            borderRadius="md"
+            src={pokemon.image_url}
+            fallbackSrc={loadingImage}
+            boxSize="100px"
+          />
+        </Link>
+      </Center>
+      <Center mt={5}>
+        <Stack direction="row" mt="5px">
+          {createBadges()}
+        </Stack>
+      </Center>
+      <Center>
+        <Text mt={2} fontSize="xl" fontWeight="semibold" align="left">
+          {titleCase(pokemon.name)}
+        </Text>
+      </Center>
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 function log(error) {
-  console.log(varName, error);
+  console.log(error);
 }
 
 const logger = {

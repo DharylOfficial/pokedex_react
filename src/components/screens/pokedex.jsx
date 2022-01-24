@@ -28,13 +28,6 @@ class Pokedex extends Component {
     return (
       <div>
         <SimpleGrid my="5px" columns={3} spacing="10px">
-          <Pokecard
-            pokemon={{
-              name: "Bulbasaur",
-              image_url:
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-            }}
-          />
           {pokemonList}
         </SimpleGrid>
       </div>
