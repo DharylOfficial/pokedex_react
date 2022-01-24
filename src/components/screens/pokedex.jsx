@@ -22,8 +22,9 @@ class Pokedex extends Component {
     this.setState({ pokemon, types });
   }
 
-  onQueryChange = (query) => {
-    this.setState({ query });
+  onQueryChange = (e) => {
+    console.log(e);
+    this.setState({ query: e.target.value });
   };
 
   render() {
