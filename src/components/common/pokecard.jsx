@@ -8,7 +8,7 @@ import Pokebadge from "./pokebadge";
 const Pokecard = ({ pokemon }) => {
   function createBadges() {
     const badges = pokemon.type_details.map((details) => {
-      return <Pokebadge type_details={details} />;
+      return <Pokebadge key={details.id} type_details={details} />;
     });
     return badges;
   }
