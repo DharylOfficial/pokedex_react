@@ -1,38 +1,26 @@
-import {
-  FormControl,
-  FormLabel,
-  Image,
-  Input,
-  Select,
-  SimpleGrid,
-  VStack,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, Flex, Spacer, Button, useToast } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import pokedexService from "../services/pokedexService";
-import _ from "lodash";
 
-import loadingImage from "../../images/loading-chemical.gif";
-import { titleCase } from "../utilities";
+import Pokeform from "../common/pokeform";
 
 const PokedexDetails = () => {
   const params = useParams();
-  const [pokemon, setPokemon] = useState({});
-  const [options, setOptions] = useState();
+  const toast = useToast();
+  const navigate = useNavigate();
+  const [pokemon, setPokemon] = useState({
+    id: "",
+    name: "",
+    types: [],
+    image_url: "",
+  });
+  const [types, setTypes] = useState([]);
 
   // SERVES AS COMPONENT DID MOUNT : useEffect(..., []);
   useEffect(() => {
     pokedexService.getTypes().then((response) => {
-      const result = response.data.map((type) => {
-        const { id, name } = type;
-        return (
-          <option key={id} value={id}>
-            {titleCase(name)}
-          </option>
-        );
-      });
-      setOptions(result);
+      setTypes(response.data);
     });
   }, []);
 
@@ -43,54 +31,85 @@ const PokedexDetails = () => {
   }, [params.id]);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { name, value } = e.target;
+
+    if (name === "type") {
+      setPokemon(updatePokemonType(e.target));
+    } else {
+      const updatedPokemon = { ...pokemon };
+      updatedPokemon[name] = value;
+      setPokemon(updatedPokemon);
+    }
+  };
+
+  const updatePokemonType = ({ checked, value }) => {
     const updatedPokemon = { ...pokemon };
-    updatedPokemon[id] = value;
-    setPokemon(updatedPokemon);
+
+    if (checked) {
+      updatedPokemon.types.push(parseInt(value));
+    } else {
+      updatedPokemon.types = updatedPokemon.types.filter((type) => {
+        return type !== parseInt(value);
+      });
+    }
+    return updatedPokemon;
+  };
+
+  const handleSave = (e) => {
+    pokedexService.patchPokemon(pokemon.id, pokemon).then((response) => {
+      if (response.status === 200) {
+        toast({
+          title: "Pokedex Updated",
+          description:
+            "Now continue with your Pokemon adventure. Gotta catch them all!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    });
+  };
+
+  const handleDelete = (e) => {
+    pokedexService.deletePokemon(pokemon.id).then((response) => {
+      if (response.status === 204) {
+        toast({
+          title: "Pokedex Updated",
+          description: "Pokemon now extinct. Gotta catch what's left!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    });
+    navigate("/");
+  };
+
+  const formPokeform = () => {
+    return <Pokeform pokemon={pokemon} onChange={handleChange} types={types} />;
+  };
+
+  const formPokeformControls = () => {
+    return (
+      <Box my="30px">
+        <Flex>
+          <Spacer />
+          <Button colorScheme="red" onClick={handleDelete} me="10px">
+            Delete
+          </Button>
+          <Button colorScheme="teal" onClick={handleSave}>
+            Save
+          </Button>
+        </Flex>
+      </Box>
+    );
   };
 
   return (
-    <SimpleGrid columns={2}>
-      <Image
-        borderRadius="md"
-        src={pokemon.image_url}
-        fallbackSrc={loadingImage}
-        boxSize="320px"
-      />
-      <VStack spacing={4} align="stretch">
-        <FormControl>
-          <FormLabel htmlFor="email">Pokemon ID</FormLabel>
-          <Input id="id" type="text" value={pokemon.id} isDisabled={true} />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="email">Pokemon Name</FormLabel>
-          <Input
-            id="name"
-            type="text"
-            value={titleCase(pokemon.name)}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="email">Type 1</FormLabel>
-          <Select
-            placeholder="Select option"
-            value={_.get(pokemon.types, 0, 0)}
-          >
-            {options}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="email">Type 2</FormLabel>
-          <Select
-            placeholder="Select option"
-            value={_.get(pokemon.types, 1, 0)}
-          >
-            {options}
-          </Select>
-        </FormControl>
-      </VStack>
-    </SimpleGrid>
+    <div>
+      {formPokeform()}
+      {formPokeformControls()}
+    </div>
   );
 };
 

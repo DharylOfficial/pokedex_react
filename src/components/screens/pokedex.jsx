@@ -24,7 +24,7 @@ class Pokedex extends Component {
 
   async handleReset() {
     const resetResult = await pokedexService.resetPokedex();
-    if (resetResult.status == 205) {
+    if (resetResult.status === 205) {
       this.componentDidMount();
     } else {
       console.log("Reset Pokedex went wrong.");
