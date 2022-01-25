@@ -39,7 +39,13 @@ const Pokeform = ({ pokemon, onChange, types }) => {
     return (
       <FormControl>
         <FormLabel>Pokemon ID</FormLabel>
-        <Input name="id" type="text" value={pokemon.id} onChange={onChange} />
+        <Input
+          name="id"
+          type="text"
+          value={pokemon.id}
+          onChange={onChange}
+          isDisabled={true}
+        />
       </FormControl>
     );
   };

@@ -6,18 +6,17 @@ import pokedexService from "../services/pokedexService";
 import Pokeform from "../common/pokeform";
 
 const PokedexDetails = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const toast = useToast();
-  const navigate = useNavigate();
+  const [types, setTypes] = useState([]);
   const [pokemon, setPokemon] = useState({
     id: "",
     name: "",
     types: [],
     image_url: "",
   });
-  const [types, setTypes] = useState([]);
 
-  // SERVES AS COMPONENT DID MOUNT : useEffect(..., []);
   useEffect(() => {
     pokedexService.getTypes().then((response) => {
       setTypes(response.data);
@@ -25,9 +24,19 @@ const PokedexDetails = () => {
   }, []);
 
   useEffect(() => {
-    pokedexService
-      .getPokemonWithId(params.id)
-      .then((response) => setPokemon(response.data));
+    console.log("params.id");
+    if (params.id !== "new") {
+      pokedexService.getPokemonWithId(params.id).then((response) => {
+        setPokemon(response.data);
+      });
+    } else {
+      setPokemon({
+        id: "",
+        name: "",
+        types: [],
+        image_url: "",
+      });
+    }
   }, [params.id]);
 
   const handleChange = (e) => {
@@ -56,6 +65,30 @@ const PokedexDetails = () => {
   };
 
   const handleSave = (e) => {
+    if (params.id === "new") {
+      doSave();
+    } else {
+      doUpdate();
+    }
+  };
+
+  const doSave = () => {
+    pokedexService.postPokemon(pokemon).then((response) => {
+      if (response.status === 201) {
+        toast({
+          title: "Pokedex Updated",
+          description:
+            "Now continue with your Pokemon adventure. Gotta catch them all!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        navigate(`/pokemon/${response.data.id}`);
+      }
+    });
+  };
+
+  const doUpdate = () => {
     pokedexService.patchPokemon(pokemon.id, pokemon).then((response) => {
       if (response.status === 200) {
         toast({
@@ -81,8 +114,8 @@ const PokedexDetails = () => {
           isClosable: true,
         });
       }
+      navigate("/");
     });
-    navigate("/");
   };
 
   const formPokeform = () => {
