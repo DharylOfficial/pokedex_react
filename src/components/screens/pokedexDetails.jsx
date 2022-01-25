@@ -42,13 +42,20 @@ const PokedexDetails = () => {
       .then((response) => setPokemon(response.data));
   }, [params.id]);
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    const updatedPokemon = { ...pokemon };
+    updatedPokemon[id] = value;
+    setPokemon(updatedPokemon);
+  };
+
   return (
     <SimpleGrid columns={2}>
       <Image
         borderRadius="md"
         src={pokemon.image_url}
         fallbackSrc={loadingImage}
-        boxSize="320"
+        boxSize="320px"
       />
       <VStack spacing={4} align="stretch">
         <FormControl>
@@ -57,7 +64,12 @@ const PokedexDetails = () => {
         </FormControl>
         <FormControl>
           <FormLabel htmlFor="email">Pokemon Name</FormLabel>
-          <Input id="name" type="text" value={titleCase(pokemon.name)} />
+          <Input
+            id="name"
+            type="text"
+            value={titleCase(pokemon.name)}
+            onChange={handleChange}
+          />
         </FormControl>
         <FormControl>
           <FormLabel htmlFor="email">Type 1</FormLabel>

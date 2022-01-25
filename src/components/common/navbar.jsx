@@ -7,16 +7,8 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import pokedex from "../services/pokedexService";
 
 const Navbar = () => {
-  const handleReset = async () => {
-    const resetResult = await pokedex.resetPokedex();
-    if (resetResult.status == 205) {
-      console.log("success");
-    }
-  };
-
   return (
     <div
       style={{
@@ -38,9 +30,6 @@ const Navbar = () => {
                 New Pokemon
               </Button>
             </Link>
-            <Button colorScheme="teal" onClick={handleReset}>
-              Reset Pokedex
-            </Button>
           </Box>
         </Flex>
       </Container>
