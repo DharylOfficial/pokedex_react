@@ -25,7 +25,7 @@ const Navbar = () => {
           </Link>
           <Spacer />
           <Box>
-            <Link to="/new">
+            <Link to="/pokemon/new">
               <Button colorScheme="teal" mr="4">
                 New Pokemon
               </Button>
