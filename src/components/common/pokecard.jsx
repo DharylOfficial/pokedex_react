@@ -16,7 +16,7 @@ const Pokecard = ({ pokemon }) => {
   return (
     <Box p="5" maxW="320px" borderWidth="1px">
       <Center>
-        <Link to="/home">
+        <Link to={`/pokemon/${pokemon.id}`}>
           <Image
             borderRadius="md"
             src={pokemon.image_url}

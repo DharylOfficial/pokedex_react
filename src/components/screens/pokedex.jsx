@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Flex, SimpleGrid, Spacer } from "@chakra-ui/react";
 import { Component } from "react";
 import Pokecard from "../common/pokecard";
 import Pokesearch from "../common/pokesearch";
@@ -22,6 +22,16 @@ class Pokedex extends Component {
     this.setState({ pokemon, types });
   }
 
+  async handleReset() {
+    const resetResult = await pokedexService.resetPokedex();
+    if (resetResult.status == 205) {
+      this.componentDidMount();
+    } else {
+      console.log("Reset Pokedex went wrong.");
+      console.log(resetResult);
+    }
+  }
+
   onQueryChange = (e) => {
     this.setState({ query: e.target.value });
   };
@@ -36,6 +46,14 @@ class Pokedex extends Component {
         <SimpleGrid my="5px" columns={3} spacing="10px" minChildWidth="320px">
           {pokemonList}
         </SimpleGrid>
+        <Box my="30px">
+          <Flex>
+            <Spacer />
+            <Button colorScheme="red" onClick={this.handleReset}>
+              Reset Pokedex
+            </Button>
+          </Flex>
+        </Box>
       </div>
     );
   }

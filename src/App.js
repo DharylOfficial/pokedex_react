@@ -5,6 +5,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Pokedex from "./components/screens/pokedex";
 import Navbar from "./components/common/navbar";
 import React from "react";
+import PokedexDetails from "./components/screens/pokedexDetails";
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Container maxW="container.lg">
               <Routes>
                 <Route path="/" element={<Pokedex />} />
+                <Route path="/pokemon/:id" element={<PokedexDetails />} />
               </Routes>
             </Container>
           </ChakraProvider>

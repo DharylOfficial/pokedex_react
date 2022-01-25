@@ -5,6 +5,11 @@ function getPokemon() {
   return http.get(apiEndpoint);
 }
 
+function getPokemonWithId(id) {
+  const apiEndpoint = `http://127.0.0.1:8000/api/pokemon/${id}/`;
+  return http.get(apiEndpoint);
+}
+
 function postPokemon(data) {
   const apiEndpoint = `http://127.0.0.1:8000/api/pokemon/`;
   return http.post(apiEndpoint, data);
@@ -25,13 +30,20 @@ function getTypes() {
   return http.get(apiEndpoint);
 }
 
+function resetPokedex() {
+  const apiEndpoint = `http://127.0.0.1:8000/api/reset/`;
+  return http.post(apiEndpoint, { reset: true });
+}
+
 const pokedexService = {
   getPokemon,
+  getPokemonWithId,
   postPokemon,
   patchPokemon,
   deletePokemon,
 
   getTypes,
+  resetPokedex,
 };
 
 export default pokedexService;
