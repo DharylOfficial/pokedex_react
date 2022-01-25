@@ -65,7 +65,9 @@ class Pokedex extends Component {
 
   filterData() {
     return this.state.pokemon.filter((pokemon) => {
-      return pokemon.name.includes(this.state.query.toLowerCase());
+      return pokemon.name
+        .toLowerCase()
+        .includes(this.state.query.toLowerCase());
     });
   }
 

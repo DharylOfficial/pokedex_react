@@ -24,7 +24,6 @@ const PokedexDetails = () => {
   }, []);
 
   useEffect(() => {
-    console.log("params.id");
     if (params.id !== "new") {
       pokedexService.getPokemonWithId(params.id).then((response) => {
         setPokemon(response.data);
