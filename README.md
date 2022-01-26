@@ -45,3 +45,16 @@ POKEFORM
 - Setting ID is disabled
 - If ID is blank, Save button sends a POST request to the Django API
 - If ID has value, Save button sends a PATCH request to the Django API
+
+## COMPONENTS
+
+COMMON - Contains UI components that could be reused on other screens
+
+CONSTANTS - Contains data that would be CONSTANT throughout the whole application
+
+SCREENS - Contains the different screens that could be accessed in this SPA
+
+SERVICES - Contains actions that involve axios requests and other third-party libraries
+
+playground.jsx - Contains test functions
+utilities.jsx - Contains reusable functions
