@@ -13,6 +13,7 @@ class Pokedex extends Component {
   };
 
   async componentDidMount() {
+    console.log("cdm");
     const pokemonResult = await pokedexService.getPokemon();
     const pokemon = pokemonResult.data;
 
@@ -22,7 +23,8 @@ class Pokedex extends Component {
     this.setState({ pokemon, types });
   }
 
-  async handleReset() {
+  handleReset = async () => {
+    this.setState({ pokemon: [] });
     const resetResult = await pokedexService.resetPokedex();
     if (resetResult.status === 205) {
       this.componentDidMount();
@@ -30,7 +32,7 @@ class Pokedex extends Component {
       console.log("Reset Pokedex went wrong.");
       console.log(resetResult);
     }
-  }
+  };
 
   onQueryChange = (e) => {
     this.setState({ query: e.target.value });

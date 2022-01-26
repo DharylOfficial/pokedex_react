@@ -1,71 +1,47 @@
-# Getting Started with Create React App
+# POKEDEX - REACT FRONTEND BY DDBC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project uses Chakra-UI for styling.
 
-## Available Scripts
+Please make sure POKEDEX - DJANGO BACKEND BY DDBC is running before starting up this project.
+POKEDEX - DJANGO BACKEND BY DDBC can be found here: https://github.com/DharylOfficial/pokedex_react
 
-In the project directory, you can run:
+## CURRENT ISSUES
 
-### `npm start`
+    - Sometimes crashes when downloading data from the OFFICIAL POKEDEX SITE
+    - Reset Pokdex buttton takes a long time to finish. Usually crashes before response from backend arrives
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## SETTING UP
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Open terminal where you want to download the project then run
 
-### `npm test`
+   - git clone https://github.com/DharylOfficial/pokedex_react
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install all needed dependencies
 
-### `npm run build`
+   - npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Run POKEDEX - DJANGO BACKEND BY DDBC
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Run the application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - npm start
 
-### `npm run eject`
+## HOW TO USE
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+NAVIGATION BAR:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Clicking on the logo brings you back to the main page
+- Clicking on the New Pokemon button opens up an empty Pokeform
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+POKEDEX BODY
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Lists all Pokemon currently stored in Pokedex
+- Clicking on a Pokecard opens up a Pokeform with its details
+- Clicking on the Reset Pokedex button deletes all currently stored data then re-downloads from pokeapi.co
+- Reset Pokedex is optimistic
 
-## Learn More
+POKEFORM
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# pokedex_react
+- Setting ID is disabled
+- If ID is blank, Save button sends a POST request to the Django API
+- If ID has value, Save button sends a PATCH request to the Django API
